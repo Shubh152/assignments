@@ -20,13 +20,12 @@ app.use(function(req, res, next) {
 
   if (numberOfRequestsForUser[userId]) {
     numberOfRequestsForUser[userId] = numberOfRequestsForUser[userId] + 1;
-    if (numberOfRequestsForUser[userId] > 5) {
-      res.status(404).send("no entry");
-    } else {
-      next();
-    }
   } else {
     numberOfRequestsForUser[userId] = 1;
+  }
+  if (numberOfRequestsForUser[userId] > 5) {
+    res.status(404).send("no entry");
+  } else {
     next();
   }
 })

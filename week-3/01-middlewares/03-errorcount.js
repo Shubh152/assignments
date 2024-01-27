@@ -5,6 +5,11 @@ const express = require('express');
 const app = express();
 let errorCount = 0;
 
+const errorHandler = (err,req,res,next)=>{
+  res.sendStatus(404);
+  errorCount++;
+}
+
 // You have been given an express server which has a few endpoints.
 // Your task is to
 // 1. Ensure that if there is ever an exception, the end user sees a status code of 404
@@ -23,4 +28,9 @@ app.get('/errorCount', function(req, res) {
   res.status(200).json({ errorCount });
 });
 
+app.use(errorHandler);
+
 module.exports = app;
+
+
+// if you call next(err) in custom err handler then in built err handler of express takes it . custom handler passed in end after other midware and route handler
